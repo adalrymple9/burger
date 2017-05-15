@@ -2,7 +2,7 @@ var connection = require("./connection.js");
 
 // Object Relational Mapper
 var orm = {
-    selectAll: function(tableName, callback) {
+    all: function(tableName, callback) {
         connection.query(
             "SELECT * FROM ??", [tableName],
             function(err, result) {
@@ -11,7 +11,7 @@ var orm = {
             }
         );
     },
-    insertOne: function(tableName, obj, callback) {
+    create: function(tableName, obj, callback) {
         connection.query(
             "INSERT INTO ?? SET ?", [tableName, obj],
             function(err, result) {
@@ -20,7 +20,7 @@ var orm = {
             }
         );
     },
-    updateOne: function(tableName, condition, obj, callback) {
+    update: function(tableName, condition, obj, callback) {
         connection.query(
             "UPDATE ?? SET ? WHERE ?", [tableName, obj, condition],
             function(err, result) {
