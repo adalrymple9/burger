@@ -1,23 +1,28 @@
 var express = require("express");
-var routes = require("./controllers/burgers_controller.js");
-var exphbs = require("express-handlebars");
 var bodyParser = require("body-parser");
+// var methodOveride = require("method-overide");
 
-
+var PORT = process.env.PORT || 3000;
 var app = express();
-var port = process.env.PORT || 3000;
+
+app.use(bodyParser.urlencoded({ extended: false }));
+var exphbs = require("express-handlebars");
 
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-app.use(bodyParser.urlencoded({ extended: false }));
-
-app.use("/public", express.static("public"));
-app.use("/burgers", routes);
+var routes = require("./controllers/burgers_controller.js");
 
 
 
+app.use("/", routes);
+app.use("/update", routes);
+app.use("/create", routes);
 
 
-app.listen(port);
+
+
+app.listen(PORT, function() {
+    console.log("listening on port:%s", PORT);
+});

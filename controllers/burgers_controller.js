@@ -1,16 +1,15 @@
 var express = require("express");
-var burger = require("../models/burger.js")
-
 var router = express.Router();
-
+var burger = require("../models/burger.js");
 
 router.get("/", function(req, res) {
+    res.redirect("/burger");
+});
+
+router.get("/burger", function(req, res) {
     burger.all(function(data) {
-        if (!req.xhr) {
-            res.render("burgers/index", { burgers: data });
-        } else {
-            res.render("partials/burgers/all", { burgers: data, layout: false });
-        }
+        res.render("index", { burgerData: data });
+
     });
 });
 
